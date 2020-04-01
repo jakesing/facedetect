@@ -37,7 +37,7 @@ class Register extends React.Component{
 	onNameChange = (event) => {
 		this.setState({
 				name: event.target.value, 
-				validName: this.state.name != ''
+				validName: this.state.name !== ''
 			})
 	}
 
@@ -56,7 +56,7 @@ class Register extends React.Component{
 
 	onSubmitRegister = () => {
 		if(this.state.validName && this.state.validEmail && this.state.validPassword){
-			fetch('https://fathomless-beach-13490.herokuapp.com/register', {
+			fetch(`${this.props.server}/register`, {
 				method: 'post',
 				headers: {
 					'Content-Type': 'application/json'
@@ -115,6 +115,7 @@ class Register extends React.Component{
 			    className: "b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib",
 			    type: "submit",
 			    value: "Sign Up",
+			    route: '/home', /*NEED TO UPDATE THIS*/
 			    onclick: this.onSubmitRegister
 	  		};
 
@@ -126,12 +127,14 @@ class Register extends React.Component{
 
 		return (
 			<Form 
-					formTitle = 'Register' 
-					formID = 'sign_up'
-					fields = {formFields} 
-					submitButton = {submitButton} 
-					errorMessage = {this.displayErrorMessage()}
-					altButton = {reRouteButton}/>
+				formTitle = 'Register' 
+				formID = 'sign_up'
+				fields = {formFields} 
+				submitButton = {submitButton} 
+				errorMessage = {this.displayErrorMessage()}
+				altButton = {reRouteButton}
+				NavLink = '/signin'
+			/>
 		);
 	}
 }

@@ -8,8 +8,16 @@ import SignIn from './components/signin/signin'
 import Register from './components/register/register'
 import FaceRecognition from './components/facerecognition/facerecognition'
 import Particles from 'react-particles-js';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useHistory,
+  Redirect
+} from 'react-router-dom';
 
-
+const prodServer = 'https://thawing-spire-16932.herokuapp.com'
 
 const particlesOptions = {
   particles: {
@@ -38,6 +46,17 @@ const initialState = {
         joined: '',
         rank: null
       }
+}
+
+function Home(props) {
+  return (
+    <div>
+      <Logo />
+      <Rank name={props.user.name} entries={props.user.entries} rank={props.user.rank} />
+      <ImageLinkForm onInputChange={props.onInputChange} onPictureSubmit={props.onPictureSubmit}/>
+      <FaceRecognition imageURL = {props.imageURL} box={props.box}/>
+    </div>
+  ) 
 }
 
 class App extends Component {
@@ -83,7 +102,7 @@ class App extends Component {
   }
 
   getRank = () => {
-    fetch('https://fathomless-beach-13490.herokuapp.com/rank',{
+    fetch(`${prodServer}/rank`,{
       method: 'put',
       headers: {
             'Content-Type': 'application/json'
@@ -102,7 +121,7 @@ class App extends Component {
   onPictureSubmit = () => {
     this.setState({imageURL: this.state.input})
     //https://samples.clarifai.com/face-det.jpg
-    fetch('https://fathomless-beach-13490.herokuapp.com/imageurl', {
+    fetch(`${prodServer}/imageURL`, {
           method: 'post',
           headers: {
             'Content-Type': 'application/json'
@@ -114,7 +133,7 @@ class App extends Component {
           .then(response => response.json())
           .then(response => {
             if (response) {
-              fetch('https://fathomless-beach-13490.herokuapp.com/image', {
+              fetch(`${prodServer}/image`, {
                 method: 'put',
                 headers: {
                   'Content-Type': 'application/json'
@@ -141,37 +160,35 @@ class App extends Component {
       this.setState(initialState)
     } else if (route === 'home') {
       this.setState({isSignedIn: true})
-      console.log(this.state)
+
     }
     this.setState({route: route})
   }
 
-
-
-
   render(){
-    const { isSignedIn, imageURL, route, box } = this.state;
+    const { isSignedIn, imageURL, route, box, user } = this.state;
     return (
       <div className="App">
-        <h1>TESTING!</h1>
         <Particles  className='particles'
-                    params={particlesOptions}
-            />
+                    params={particlesOptions}/>
         <Navigation isSignedIn = {isSignedIn} onRouteChange = {this.onRouteChange}/>
-        { route === 'home' 
-          ? <div>
-              <Logo />
-              <Rank name={this.state.user.name} entries={this.state.user.entries} rank={this.state.user.rank} />
-              <ImageLinkForm onInputChange={this.onInputChange} onPictureSubmit={this.onPictureSubmit}/>
-              <FaceRecognition imageURL = {imageURL} box={box}/>
-            </div>
+
+        <Switch>
+          <Route exact path="/register"><Register loadUser = {this.loadUser} onRouteChange = {this.onRouteChange} server = {prodServer}/></Route>
+          <Route exact path="/signin"><SignIn loadUser = {this.loadUser} onRouteChange = {this.onRouteChange} server = {prodServer}/></Route>
+          <Route exact path="/"><SignIn loadUser = {this.loadUser} onRouteChange = {this.onRouteChange} server = {prodServer}/></Route>
+          <Route exact path="/home"><Home user={user} imageURL={imageURL} box={box} onInputChange={this.onInputChange} onPictureSubmit={this.onPictureSubmit}/></Route>
+        </Switch>
+
+{/*        { route === 'home' 
+          ? <Home user={user} imageURL={imageURL} box={box} onInputChange={this.onInputChange} onPictureSubmit={this.onPictureSubmit}/>
           : ( 
               route === 'signin' || route === 'signout'
-              ? <SignIn loadUser = {this.loadUser} onRouteChange = {this.onRouteChange}/>
-              : <Register loadUser = {this.loadUser} onRouteChange = {this.onRouteChange}/>
+              ? <SignIn loadUser = {this.loadUser} onRouteChange = {this.onRouteChange} server = {prodServer}/>
+              : <Register loadUser = {this.loadUser} onRouteChange = {this.onRouteChange} server = {prodServer}/>
             )
         }
-        
+*/}        
 
       </div>
     );
