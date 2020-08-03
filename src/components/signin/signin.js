@@ -1,5 +1,7 @@
 import React from 'react';
 import Form from '../form/form'
+import Axios from 'axios';
+import Cheerio from 'cheerio'
 
 class SignIn extends React.Component {
 	constructor(props){
@@ -7,11 +9,10 @@ class SignIn extends React.Component {
 		this.state = {
 			signInEmail: '',
 			signInPassword: '',
-			signInError: false,
-			signInSuccessful: false
+			signInError: false
 		}
 	}
-
+	
 	onEmailChange = (event) => {
 		this.setState({signInEmail: event.target.value})
 	}
@@ -31,7 +32,7 @@ class SignIn extends React.Component {
 	}
 
 	onSubmitSignIn = () => {
-		fetch(`${this.props.server}/signin`, {
+		fetch('https://fathomless-beach-13490.herokuapp.com/signin', {
 			method: 'post',
 			headers: {
 				'Content-Type': 'application/json'
@@ -46,7 +47,6 @@ class SignIn extends React.Component {
 				if(user.id){
 					this.props.loadUser(user);
 					this.props.onRouteChange('home');
-
 				} else {
 					this.setState({signInError: true})
 				}
@@ -78,7 +78,6 @@ class SignIn extends React.Component {
 			    className: "b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib",
 			    type: "submit",
 			    value: "Sign in",
-			    route: '/home', /*NEED TO UPDATE THIS*/
 			    onclick: this.onSubmitSignIn
 	  		};
 
@@ -93,12 +92,9 @@ class SignIn extends React.Component {
 				formTitle = 'Sign In' 
 				formID = 'sign_in'
 				fields = {formFields} 
-				submitButton = {submitButton}
+				submitButton = {submitButton} 
 				errorMessage = {this.displayErrorMessage()}
-				altButton = {reRouteButton}
-				NavLink = '/register'
-
-			/>
+				altButton = {reRouteButton}/>
 		);
 	}
 }

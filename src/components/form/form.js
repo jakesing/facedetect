@@ -1,5 +1,4 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 
 function Form(props)  {
 		return (
@@ -12,14 +11,13 @@ function Form(props)  {
 			      {	props.fields.map((field) => {
 			      	return (
 				      <div className="mt3">
-				        <label key={field.id} className="db fw6 lh-copy f6" htmlFor="email-address">{field.title}</label>
+				        <label className="db fw6 lh-copy f6" htmlFor="email-address">{field.title}</label>
 				        <input
 				        	className={field.classname}
 				        	type={field.type}
 				        	name={field.name}
 				        	id={field.id}
 				        	onChange={field.onChange}
-				        	key={field}
 				        	 />
 				      </div>		      		
 			      		)
@@ -27,25 +25,19 @@ function Form(props)  {
 				  }
 			    </fieldset>
 			    <div className="">
-			    	<NavLink to={props.submitButton.route}> 
-			      		<input 
-					      	onClick={props.submitButton.onclick}
-					      	className={props.submitButton.className} 
-					      	type={props.submitButton.type}
-					      	value={props.submitButton.value}
-				      	/>
-			      	</NavLink>
+			      <input 
+			      	onClick={props.submitButton.onclick}
+			      	className={props.submitButton.className} 
+			      	type={props.submitButton.type}
+			      	value={props.submitButton.value}
+			      	/>
 			    </div>
 			    <div className="lh-copy mt3">
 			      <p 
-			      	
-			      		onClick = {props.altButton.onclick} 
-			      		className={props.altButton.classname}
-	      			>
-	      				<NavLink to={props.NavLink}>
-			      			{props.altButton.text}
-		      			</NavLink>
-		      		</p>
+			      	onClick = {props.altButton.onclick} 
+			      	className={props.altButton.classname}>
+			      	{props.altButton.text}
+		      	</p>
 			    </div>
 			  </div>
 			</main>
