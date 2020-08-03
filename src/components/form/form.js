@@ -26,16 +26,16 @@ function Form(props)  {
 			    </fieldset>
 			    <div className="">
 			      <input 
-			      	onClick={props.submitButton.onclick}
-			      	className={props.submitButton.className} 
-			      	type={props.submitButton.type}
-			      	value={props.submitButton.value}
+			      	onClick = {props.submitButton.onclick}
+			      	className = {props.submitButton.className} 
+			      	type = {props.submitButton.type}
+			      	value = {props.submitButton.value}
 			      	/>
 			    </div>
 			    <div className="lh-copy mt3">
 			      <p 
 			      	onClick = {props.altButton.onclick} 
-			      	className={props.altButton.classname}>
+			      	className = {props.altButton.classname}>
 			      	{props.altButton.text}
 		      	</p>
 			    </div>
