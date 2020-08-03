@@ -37,7 +37,7 @@ class Register extends React.Component{
 	onNameChange = (event) => {
 		this.setState({
 				name: event.target.value, 
-				validName: this.state.name != ''
+				validName: this.state.name !== ''
 			})
 	}
 
@@ -56,7 +56,7 @@ class Register extends React.Component{
 
 	onSubmitRegister = () => {
 		if(this.state.validName && this.state.validEmail && this.state.validPassword){
-			fetch('https://fathomless-beach-13490.herokuapp.com/register', {
+			fetch(`${this.props.server}/register`, {
 				method: 'post',
 				headers: {
 					'Content-Type': 'application/json'

@@ -1,7 +1,5 @@
 import React from 'react';
 import Form from '../form/form'
-import Axios from 'axios';
-import Cheerio from 'cheerio'
 
 class SignIn extends React.Component {
 	constructor(props){
@@ -32,7 +30,7 @@ class SignIn extends React.Component {
 	}
 
 	onSubmitSignIn = () => {
-		fetch('https://fathomless-beach-13490.herokuapp.com/signin', {
+		fetch(`${this.props.server}/signin`, {
 			method: 'post',
 			headers: {
 				'Content-Type': 'application/json'

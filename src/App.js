@@ -10,6 +10,7 @@ import FaceRecognition from './components/facerecognition/facerecognition'
 import Particles from 'react-particles-js';
 
 
+const prodServer = 'https://thawing-spire-16932.herokuapp.com'
 
 const particlesOptions = {
   particles: {
@@ -83,7 +84,7 @@ class App extends Component {
   }
 
   getRank = () => {
-    fetch('https://fathomless-beach-13490.herokuapp.com/rank',{
+    fetch(`${prodServer}/rank`,{
       method: 'put',
       headers: {
             'Content-Type': 'application/json'
@@ -102,7 +103,7 @@ class App extends Component {
   onPictureSubmit = () => {
     this.setState({imageURL: this.state.input})
     //https://samples.clarifai.com/face-det.jpg
-    fetch('https://fathomless-beach-13490.herokuapp.com/imageurl', {
+    fetch(`${prodServer}/imageURL`, {
           method: 'post',
           headers: {
             'Content-Type': 'application/json'
@@ -114,7 +115,7 @@ class App extends Component {
           .then(response => response.json())
           .then(response => {
             if (response) {
-              fetch('https://fathomless-beach-13490.herokuapp.com/image', {
+              fetch(`${prodServer}/image`, {
                 method: 'put',
                 headers: {
                   'Content-Type': 'application/json'
@@ -153,7 +154,7 @@ class App extends Component {
     const { isSignedIn, imageURL, route, box } = this.state;
     return (
       <div className="App">
-        <h1>TESTING!</h1>
+        <h1> hey loser!</h1>
         <Particles  className='particles'
                     params={particlesOptions}
             />
@@ -167,8 +168,8 @@ class App extends Component {
             </div>
           : ( 
               route === 'signin' || route === 'signout'
-              ? <SignIn loadUser = {this.loadUser} onRouteChange = {this.onRouteChange}/>
-              : <Register loadUser = {this.loadUser} onRouteChange = {this.onRouteChange}/>
+              ? <SignIn loadUser = {this.loadUser} onRouteChange = {this.onRouteChange} server = {prodServer}/>
+              : <Register loadUser = {this.loadUser} onRouteChange = {this.onRouteChange} server = {prodServer} />
             )
         }
         
