@@ -81,7 +81,7 @@ class SignIn extends React.Component {
 
 	  	let reRouteButton = {
 	  		onclick: () => onRouteChange('register'),
-	  		classname: "f6 link dim black db pointer",
+	  		classname: "f6 link dim red db pointer",
 	  		text: 'New User? Register Instead'
 	  	}
 

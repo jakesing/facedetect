@@ -166,6 +166,7 @@ class App extends Component {
 
           this.getRank();
         }
+        
   //some basic routing logic
   onRouteChange = (route) => {
     if(route==='signout') {
@@ -183,8 +184,9 @@ class App extends Component {
   render(){
     const { isSignedIn, imageURL, route, box } = this.state;
     return (
+
       <div className="App">
-        <h1> hey poop!</h1>
+        <h1 className="font-sans text-lg text-gray-800 text-center"> hey poop!</h1>
         <Particles  className='particles'
                     params={particlesOptions}
           />
