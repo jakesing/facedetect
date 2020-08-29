@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import './App.css';
 import Navigation from './components/navigation/navigation'
@@ -113,7 +114,7 @@ class App extends Component {
 
   //gets the user's rank from the database.
   getRank = () => {
-    //check the rank endpoint for the logic used
+    //calls the rank endpoint defined in the server code here: https://github.com/jakesing/facedetect-api/blob/master/controllers/rank.js
     fetch(`${prodServer}/rank`,{
       method: 'put',
       headers: {
